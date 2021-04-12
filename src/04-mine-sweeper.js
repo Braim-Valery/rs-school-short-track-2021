@@ -21,8 +21,25 @@
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new Error('Not implemented');
+function minesweeper(arrs) {
+  const copyArr = arrs.map((arr) => arr.slice());
+  arrs.forEach((_, indY) => {
+    const prevElm = arrs[indY - 1] || [];
+    const currnElm = arrs[indY];
+    const nextElm = arrs[indY + 1] || [];
+
+    arrs.forEach((__, indX) => {
+      let adjacElm = [
+        prevElm[indX - 1], prevElm[indX], prevElm[indX + 1],
+        currnElm[indX - 1], currnElm[indX + 1], nextElm[indX - 1],
+        nextElm[indX], nextElm[indX + 1],
+      ];
+      adjacElm = adjacElm.filter((a) => a === true);
+      copyArr[indY][indX] = adjacElm.length;
+    });
+  });
+
+  return copyArr;
 }
 
 module.exports = minesweeper;
